@@ -1,5 +1,5 @@
 # generator_avl_stabla
-JS generator AVL stabala (sa metodama za dodavanje, uklanjanje i prikaz čvorova)
+JS generator AVL stabla (sa metodama za dodavanje, uklanjanje i prikaz čvorova)
 
 ![generator avl stabla](https://www.codeblog.rs/github_pics/gen_avl_stablo.png)
 
