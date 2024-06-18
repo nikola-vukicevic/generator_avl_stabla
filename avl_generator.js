@@ -1,107 +1,107 @@
 /* -------------------------------------------------------------------------- */
-/* Generator AVL stabla sa opcijama za dodavanje, brisanje i prikaz čvorova   */
-/* Copyright (C) 2020. Nikola Vukićević                                       */
+/* Copyright (C) 2020. codeblog.rs                                            */
 /* -------------------------------------------------------------------------- */
+const CONFIG = {
+	svgNs: "http://www.w3.org/2000/svg",
 
-const SVG_NS               = "http://www.w3.org/2000/svg";
+	// IVICE
 
-// IVICE
+	ivicaDebljina: 1.5,
+	ivicaBoja:     "#000",
 
-var   ivicaDebljina        = 1.5;
-var   ivicaBoja            = "#000";
+	// KRUGOVI
 
-// KRUGOVI
+	krugPoluprecnik1:   16,
+	krugIvicaDebljina1: 0.5,
+	krugIvicaBoja1:     "#000",
+	krugIspuna1:        "#083880",
 
-var   krugPoluprecnik1     = 16;
-var   krugIvicaDebljina1   = 0.5;
-var   krugIvicaBoja1       = "#000";
-var   krugIspuna1          = "#083880";
+	krugPoluprecnik2:   24,
+	krugIvicaDebljina2: 0.5,
+	krugIvicaBoja2:     "#000",
+	krugIspuna2:        "#1070ff",
 
-var   krugPoluprecnik2     = 24;
-var   krugIvicaDebljina2   = 0.5;
-var   krugIvicaBoja2       = "#000";
-var   krugIspuna2          = "#1070ff";
+	// TEKST (U KRUGOVIMA)
 
-// TEKST (U KRUGOVIMA)
+	fontFamilija1:    "Montserrat, sans-serif",
+	fontFamilija1:    "Inconsolata, Consolas, monospace",
+	fontFamilija1:    "monospace",
+	fontFamilija1:    "sans-serif",
+	fontVelicina1:    "20px",
+	fontDebljina1:    700,
+	fontBoja1:        "#fff",
+	fontOffsetY1:     -1,
+	fontOffsetYgpqy1: -1,
+	   
+	fontFamilija2:    "Montserrat, sans-serif",
+	fontFamilija2:    "Inconsolata, Consolas, monospace",
+	fontFamilija2:    "monospace",
+	fontFamilija2:    "sans-serif",
+	fontVelicina2:    "24px",
+	fontDebljina2:    400,
+	fontBoja2:        "#fff",
+	fontOffsetY2:     -1,
+	fontOffsetYgpqy2: -3,
 
-var   fontFamilija1        = "Montserrat, sans-serif";
-var   fontFamilija1        = "Inconsolata, Consolas, monospace";
-var   fontFamilija1        = "monospace";
-var   fontFamilija1        = "sans-serif";
-var   fontVelicina1        = "20px";
-var   fontDebljina1        = 700;
-var   fontBoja1            = "#fff";
-var   fontOffsetY1         = -1;
-var   fontOffsetYgpqy1     = -1;
-   
-var   fontFamilija2        = "Montserrat, sans-serif";
-var   fontFamilija2        = "Inconsolata, Consolas, monospace";
-var   fontFamilija2        = "monospace";
-var   fontFamilija2        = "sans-serif";
-var   fontVelicina2        = "24px";
-var   fontDebljina2        = 400;
-var   fontBoja2            = "#fff";
-var   fontOffsetY2         = -1;
-var   fontOffsetYgpqy2     = -3;
+	// TEKST NOTACIJE
 
-// TEKST NOTACIJE
+	fontFamilijaInfiks: "Montserrat-Medium, sans-serif",
+	fontFamilijaInfiks: "Inconsolata, Consolas, monospace",
+	fontVelicinaInfiks: "22px",
+	fontDebljinaInfiks: 700,
+	fontBojaInfiks:     "#1070ff",
+	fontOffsetXInfiks:  20,
+	fontOffsetYInfiks:  32,
 
-var   fontFamilijaInfiks   = "Montserrat-Medium, sans-serif";
-var   fontFamilijaInfiks   = "Inconsolata, Consolas, monospace";
-var   fontVelicinaInfiks   = "22px";
-var   fontDebljinaInfiks   = 700;
-var   fontBojaInfiks       = "#1070ff";
-var   fontOffsetXInfiks    = 20;
-var   fontOffsetYInfiks    = 32;
+	fontFamilijaPrefiks: "Montserrat-Medium, sans-serif",
+	fontFamilijaPrefiks: "Inconsolata, Consolas, monospace",
+	fontVelicinaPrefiks: "22px",
+	fontDebljinaPrefiks: 700,
+	fontBojaPrefiks:     "#1070ff",
+	fontOffsetXPrefiks:  20,
+	fontOffsetYPrefiks:  64,
 
-var   fontFamilijaPrefiks  = "Montserrat-Medium, sans-serif";
-var   fontFamilijaPrefiks  = "Inconsolata, Consolas, monospace";
-var   fontVelicinaPrefiks  = "22px";
-var   fontDebljinaPrefiks  = 700;
-var   fontBojaPrefiks      = "#1070ff";
-var   fontOffsetXPrefiks   = 20;
-var   fontOffsetYPrefiks   = 64;
+	fontFamilijaPostfiks: "Montserrat-Medium, sans-serif",
+	fontFamilijaPostfiks: "Inconsolata, Consolas, monospace",
+	fontVelicinaPostfiks: "22px",
+	fontDebljinaPostfiks: 700,
+	fontBojaPostfiks:     "#1070ff",
+	fontOffsetXPostfiks:  20,
+	fontOffsetYPostfiks:  96,
 
-var   fontFamilijaPostfiks = "Montserrat-Medium, sans-serif";
-var   fontFamilijaPostfiks = "Inconsolata, Consolas, monospace";
-var   fontVelicinaPostfiks = "22px";
-var   fontDebljinaPostfiks = 700;
-var   fontBojaPostfiks     = "#1070ff";
-var   fontOffsetXPostfiks  = 20;
-var   fontOffsetYPostfiks  = 96;
+	bojaIspuna1:    "#1070ff",
+	bojaIspuna2:    "#10ff70",
+	bojaIspuna3:    "#ff7070",
+	bojaIvica1:     "#000",
+	bojaIvica2:     "#000",
+	bojaIvica3:     "#000",
+	bojaTekst1:     "#fff",
+	bojaTekst2:     "#000",
+	debljinaIvica1: 0.5,
+	debljinaIvica2: 2.0
+}
 
-// SVG_STABLO
+let SVG_PLATNO = {
+	sirina:               "100%",
+	visina:               "800px",
+	marginaX:             36,
+	offsetY:              60,
+	razmakX:              32,
+	razmakY:              56,
+	kriticnaVisinaRazmak: 4,
+	dodatniRazmak:        2,
+	korekcija:            1000
+}
 
-var   svgPlatnoSirina      = "100%";
-var   svgPlatnoVisina      = "800px";
-var   stabloMarginaX       = 36;
-var   stabloOffsetY        = 60;
-var   razmakX              = 32;
-var   razmakY              = 56;
-var   kriticnaVisinaRazmak = 4;
-var   dodatniRazmak        = 2;
-var   KOREKCIJA            = 1000;
-
-// GLAVNE STRUKTURE PODATAKA
-
-var   BOJA_ISPUNA_1        = "#1070ff";
-var   BOJA_ISPUNA_2        = "#10ff70";
-var   BOJA_ISPUNA_3        = "#ff7070";
-var   BOJA_IVICA_1         = "#000";
-var   BOJA_IVICA_2         = "#000";
-var   BOJA_IVICA_3         = "#000";
-var   BOJA_TEKST_1         = "#fff";
-var   BOJA_TEKST_2         = "#000";
-var   DEBLJINA_IVICA_1     = 0.5;
-var   DEBLJINA_IVICA_2     = 2.0;
-
-var   BROJAC               = -1;
-var   RED;
-var   STEK;
-var   STABLO;
-var   LISTA_CVOROVA;
-var   IZABRANI_CVOR;
-var   ISPIS;
+let STRUCT = {
+	brojac:       -1,
+	red:          null,
+	stek:         null,
+	stablo:       null,
+	listaCvorova: null,
+	izabraniCvor: null,
+	ispis:        null
+}
 
 class Cvor {
 	constructor (vrednost) {
@@ -120,17 +120,16 @@ class Cvor {
 		this.predakOffsetX = 0;
 		this.predakOffsetY = 0;
 		this.balansFaktor  = 0;
-		this.bojaIspuna    = BOJA_ISPUNA_1;
-		this.bojaIvica     = BOJA_IVICA_1;
-		this.bojaTekst     = BOJA_TEKST_1;
-		this.debljinaIvica = DEBLJINA_IVICA_1;
+		this.bojaIspuna    = CONFIG.bojaIspuna1;
+		this.bojaIvica     = CONFIG.bojaIvica1;
+		this.bojaTekst     = CONFIG.bojaTekst1;
+		this.debljinaIvica = CONFIG.debljinaIvica1;
 		this.levi          = null;
 		this.desni         = null;
 	}
 }
 
 function azuriranjeStablaSirinaVisina(cvor) {
-	//console.log(cvor);
 	if(cvor == null) return;
 
 	azuriranjeStablaSirinaVisina(cvor.levi);
@@ -179,54 +178,54 @@ function azuriranjeStablaSirinaVisina(cvor) {
 	//console.log(cvor.vrednost + " cL: " + cvor.levi.visina + " cD: " + cvor.desni.visina + " c: " + cvor.visina);
 }
 
-function azuriranjeStablaXY() {
+function azuriranjeStablaXY(obj, platno, config) {
 	let i;
 	let visinaY = 1;
-	RED = [];
+	obj.red     = [];
 	
-	STABLO.X = stabloMarginaX + krugPoluprecnik2 + STABLO.sirinaLevi * razmakX;
-	STABLO.Y = stabloOffsetY  +                    (visinaY - 1)     * razmakY;
+	obj.stablo.X = platno.marginaX + config.krugPoluprecnik2 + obj.stablo.sirinaLevi * platno.razmakX;
+	obj.stablo.Y = platno.offsetY  +                           (visinaY - 1)         * platno.razmakY;
 	/*
 	console.log("KOREN: " + STABLO.tekstSadrzaj + " " +
 		         STABLO.sirinaLevi + " " +
 		         STABLO.sirinaDesni);
 	//*/
 
-	if(STABLO.levi != null) {
-		STABLO.levi.predakX       =  STABLO.X;
-		STABLO.levi.predakY       =  STABLO.Y;
-		STABLO.levi.predakOffsetX = -STABLO.sledeciLevi * razmakX;
-		RED.push(STABLO.levi);
+	if(obj.stablo.levi != null) {
+		obj.stablo.levi.predakX       =  obj.stablo.X;
+		obj.stablo.levi.predakY       =  obj.stablo.Y;
+		obj.stablo.levi.predakOffsetX = -obj.stablo.sledeciLevi * platno.razmakX;
+		obj.red.push(obj.stablo.levi);
 	}
 	
-	if(STABLO.desni != null) {
-		STABLO.desni.predakX       = STABLO.X;
-		STABLO.desni.predakY       = STABLO.Y;
-		STABLO.desni.predakOffsetX = STABLO.sledeciDesni * razmakX;
-		RED.push(STABLO.desni);
+	if(obj.stablo.desni != null) {
+		obj.stablo.desni.predakX       = obj.stablo.X;
+		obj.stablo.desni.predakY       = obj.stablo.Y;
+		obj.stablo.desni.predakOffsetX = obj.stablo.sledeciDesni * platno.razmakX;
+		obj.red.push(obj.stablo.desni);
 	}
 	
 	visinaY++;
 
-	while(RED.length > 0) {
+	while(obj.red.length > 0) {
 		let red_pom = [];
 
-		for(i = 0; i < RED.length; i++) {
-			let cv_pom = RED[i];
+		for(i = 0; i < obj.red.length; i++) {
+			let cv_pom = obj.red[i];
 			cv_pom.X = cv_pom.predakX + cv_pom.predakOffsetX;
-			cv_pom.Y = cv_pom.predakY + razmakY;
+			cv_pom.Y = cv_pom.predakY + platno.razmakY;
 
 			if(cv_pom.levi != null) {
 				cv_pom.levi.predakX       = cv_pom.X;
 				cv_pom.levi.predakY       = cv_pom.Y;
-				cv_pom.levi.predakOffsetX = -cv_pom.sledeciLevi * razmakX;
+				cv_pom.levi.predakOffsetX = -cv_pom.sledeciLevi * platno.razmakX;
 				red_pom.push(cv_pom.levi);
 			}
 
 			if(cv_pom.desni != null) {
 				cv_pom.desni.predakX       = cv_pom.X;
 				cv_pom.desni.predakY       = cv_pom.Y;
-				cv_pom.desni.predakOffsetX = cv_pom.sledeciDesni * razmakX;
+				cv_pom.desni.predakOffsetX = cv_pom.sledeciDesni * platno.razmakX;
 				red_pom.push(cv_pom.desni);
 			}
 			/*
@@ -237,35 +236,35 @@ function azuriranjeStablaXY() {
 			//*/
 		}
 
-		RED = [];
-		RED = red_pom;
+		obj.red = [];
+		obj.red = red_pom;
 		visinaY++;
 	}
 }
 
-function crtanjeStabla(svgObjekat) {
+function crtanjeStabla(svgObjekat, obj, platno, config) {
 	let i;
 	let visinaY = 1;
-	RED = [];
-	RED.push(STABLO);
+	obj.red = [];
+	obj.red.push(obj.stablo);
 
-	while(RED.length > 0) {
+	while(obj.red.length > 0) {
 		let red_pom = [];
 
-		for(i = 0; i < RED.length; i++) {
-			crtanjeCvora(svgObjekat, RED[i]);
+		for(i = 0; i < obj.red.length; i++) {
+			crtanjeCvora(svgObjekat, obj.red[i], platno, config);
 			
-			if(RED[i].levi != null) {
-				red_pom.push(RED[i].levi);
+			if(obj.red[i].levi != null) {
+				red_pom.push(obj.red[i].levi);
 			}
 
-			if(RED[i].desni != null) {
-				red_pom.push(RED[i].desni);
+			if(obj.red[i].desni != null) {
+				red_pom.push(obj.red[i].desni);
 			}
 		}
 
-		RED = [];
-		RED = red_pom;
+		obj.red = [];
+		obj.red = red_pom;
 	}
 }
 
@@ -386,7 +385,7 @@ function rotacijaDL(C) {
 
 function dodavanje(C, vrednost) {
 	if(C == null) return new Cvor(vrednost);
-		
+
 	if(vrednost < C.vrednost) {
 		C.levi = dodavanje(C.levi, vrednost);
 	}
@@ -477,50 +476,50 @@ function ispisTekstaSVG(svgObjekat) {
     svgObjekat.appendChild(tekst);
 }
 
-function crtanjeCvora(svgObjekat, cvor) {
+function crtanjeCvora(svgObjekat, cvor, platno, config) {
 
     // LINIJA - LEVA
 
-    var linijaLeva = document.createElementNS(SVG_NS, "line");
+    var linijaLeva = document.createElementNS(config.svgNs, "line");
 
     linijaLeva.setAttribute("x1",           cvor.X);
     linijaLeva.setAttribute("y1",           cvor.Y);
-    linijaLeva.setAttribute("x2",           cvor.X - cvor.sledeciLevi * razmakX);
-    linijaLeva.setAttribute("y2",           cvor.Y + ((cvor.sledeciLevi > 0)? 1 : 0) * ((cvor.visina > 1)? razmakY : 0));
-    linijaLeva.setAttribute("stroke",       ivicaBoja);
-    linijaLeva.setAttribute("stroke-width", ivicaDebljina);
+    linijaLeva.setAttribute("x2",           cvor.X - cvor.sledeciLevi * platno.razmakX);
+    linijaLeva.setAttribute("y2",           cvor.Y + ((cvor.sledeciLevi > 0)? 1 : 0) * ((cvor.visina > 1)? platno.razmakY : 0));
+    linijaLeva.setAttribute("stroke",       config.ivicaBoja);
+    linijaLeva.setAttribute("stroke-width", config.ivicaDebljina);
 
     // LINIJA - DESNA
 
-    var linijaDesna = document.createElementNS(SVG_NS, "line");
+    var linijaDesna = document.createElementNS(config.svgNs, "line");
 
     linijaDesna.setAttribute("x1",           cvor.X);
     linijaDesna.setAttribute("y1",           cvor.Y);
-    linijaDesna.setAttribute("x2",           cvor.X + cvor.sledeciDesni * razmakX);
-    linijaDesna.setAttribute("y2",           cvor.Y + ((cvor.sledeciDesni > 0)? 1 : 0) * ((cvor.visina > 1)? razmakY : 0));
-    linijaDesna.setAttribute("stroke",       ivicaBoja);
-    linijaDesna.setAttribute("stroke-width", ivicaDebljina);
+    linijaDesna.setAttribute("x2",           cvor.X + cvor.sledeciDesni * platno.razmakX);
+    linijaDesna.setAttribute("y2",           cvor.Y + ((cvor.sledeciDesni > 0)? 1 : 0) * ((cvor.visina > 1)? platno.razmakY : 0));
+    linijaDesna.setAttribute("stroke",       config.ivicaBoja);
+    linijaDesna.setAttribute("stroke-width", config.ivicaDebljina);
 
     // KRUG
 
-    var krug = document.createElementNS(SVG_NS, "circle");
+    var krug = document.createElementNS(config.svgNs, "circle");
 
     krug.setAttribute("cx",           cvor.X);
     krug.setAttribute("cy",           cvor.Y);
-    krug.setAttribute("r",            ((cvor.tip == 1)? krugPoluprecnik1   : krugPoluprecnik2));
+    krug.setAttribute("r",            ((cvor.tip == 1)? config.krugPoluprecnik1 : config.krugPoluprecnik2));
     krug.setAttribute("stroke",       cvor.bojaIvica);
     krug.setAttribute("stroke-width", cvor.debljinaIvica);
     krug.setAttribute("fill",         cvor.bojaIspuna);
 
     // TEKST
 
-    var tekst       = document.createElementNS(SVG_NS, "text");
-    var koordinataY = cvor.Y +  fontOffsetY2;
+    var tekst       = document.createElementNS(config.svgNs, "text");
+    var koordinataY = cvor.Y +  config.fontOffsetY2;
     tekst.setAttribute("x", cvor.X);
     tekst.setAttribute("y", koordinataY);
-    tekst.setAttribute("font-family", fontFamilija2);
-    tekst.setAttribute("font-weight", fontDebljina2);
-    tekst.setAttribute("font-size",   fontVelicina2);
+    tekst.setAttribute("font-family", config.fontFamilija2);
+    tekst.setAttribute("font-weight", config.fontDebljina2);
+    tekst.setAttribute("font-size",   config.fontVelicina2);
     tekst.setAttribute("fill",        cvor.bojaTekst);
     tekst.setAttribute("text-anchor",       "middle");
     tekst.setAttribute("dominant-baseline", "central");
@@ -532,57 +531,59 @@ function crtanjeCvora(svgObjekat, cvor) {
     svgObjekat.appendChild(tekst);
 }
 
-function osvezavanjePrikaza() {
+function osvezavanjePrikaza(obj, platno, config) {
 	let svg_platno = document.getElementById("svg_platno");
 	let sirina     = svg_platno.clientWidth;
 	svg_platno.style.maxWidth = sirina + "px";
 
-	var svg1       = document.createElementNS(SVG_NS, "svg");
+	var svg1       = document.createElementNS(config.svgNs, "svg");
 	
-	crtanjeStabla(svg1);
+	crtanjeStabla(svg1, obj, platno, config);
 
-	svgPlatnoSirina = ((STABLO.sirinaLevi + STABLO.sirinaDesni) * razmakX +
-		              2 * stabloMarginaX+
-		              2 * krugPoluprecnik2) + "px";
-	svgPlatnoVisina = (STABLO.visina * razmakY + stabloOffsetY) + "px";
+	platno.sirina = ((obj.stablo.sirinaLevi + obj.stablo.sirinaDesni) * platno.razmakX +
+		              2 * platno.marginaX+
+		              2 * config.krugPoluprecnik2) + "px";
+	platno.visina = (obj.stablo.visina * platno.razmakY + platno.offsetY) + "px";
 	
-	svg1.setAttribute("width",  svgPlatnoSirina);
-	svg1.setAttribute("height", svgPlatnoVisina);
+	svg1.setAttribute("width",  platno.sirina);
+	svg1.setAttribute("height", platno.visina);
     document.getElementById("svg_platno").innerHTML = "";
     document.getElementById("svg_platno").appendChild(svg1);
 }
 
-function dodavanjeNovogCvora() {
+function dodavanjeNovogCvora(obj, platno, config) {
 	var vrednost = parseInt(document.getElementById("forma_avl_cvor_dodavanje").value);
 	document.getElementById("forma_avl_cvor_dodavanje").value = "";
 	
 	//VRATITI
 	if(isNaN(vrednost))               return;
-	if(BROJAC == -1 && (vrednost < 0 || vrednost > 99)) return;
+	if(obj.brojac == -1 && (vrednost < 0 || vrednost > 99)) return;
+	// TODO
 	
 	// VRATITI
-	STABLO = dodavanje(STABLO, vrednost);
+	obj.stablo = dodavanje(obj.stablo, vrednost);
 	
-	azuriranjeStablaSirinaVisina(STABLO);
+	azuriranjeStablaSirinaVisina(obj.stablo);
 	//console.log(STABLO);
-	azuriranjeStablaXY();
+	azuriranjeStablaXY(obj, platno, config);
 	//popunjavanjeListeCvorova();
-	osvezavanjePrikaza();
+	osvezavanjePrikaza(obj, platno, config);
+	document.getElementById("forma_avl_cvor_dodavanje").focus();
 	
 	//citanjeStabla();
 	//citanjeReda();
 }
 
-function uklanjanjeCvoraIzStabla() {
+function uklanjanjeCvoraIzStabla(obj, platno, config) {
 	var vrednost   = parseInt(document.getElementById("forma_avl_cvor_uklanjanje").value);
 	if(vrednost < 0 || vrednost > 99) return;
 
-	STABLO = uklanjanjeCvora(STABLO, vrednost);
+	obj.stablo = uklanjanjeCvora(obj.stablo, vrednost);
 	
-	azuriranjeStablaSirinaVisina(STABLO);
-	azuriranjeStablaXY();
+	azuriranjeStablaSirinaVisina(obj.stablo);
+	azuriranjeStablaXY(obj, platno, config);
 	////popunjavanjeListeCvorova();
-	osvezavanjePrikaza();
+	osvezavanjePrikaza(obj, platno, config);
 	//citanjeStabla();
 	//citanjeReda();
 }
@@ -679,22 +680,18 @@ function uklanjanjeCvora(cvor, vrednost) {
 	return cvor;
 }
 
-function proveraPoklapanja(x, y, lista) {
+function proveraPoklapanja(x, y, lista, obj, platno, config) {
 	cvor = lista[0];
 
-
-
-
 	if(IZABRANI_CVOR != null) {
-		if(proveraPoklapanjaCvor(x, y, cvor)) {
+		if(proveraPoklapanjaCvor(x, y, cvor, obj, platno, config)) {
 			return;
 		}
 		else {
-			uklanjanjeInfo();
+			uklanjanjeInfo(obj, platno, config);
 			return;
 		}
 	}
-
 
 	if(lista == null) return;
 
@@ -703,18 +700,17 @@ function proveraPoklapanja(x, y, lista) {
 	for(i = 0; i < d; i++) {
 		cvor = lista[i];
 		
-		if(proveraPoklapanjaCvor(x, y, cvor)) {
+		if(proveraPoklapanjaCvor(x, y, cvor, obj, platno, config)) {
 			return;
 		}
 	}
 
 	if(i == d) {
-		uklanjanjeInfo();
+		uklanjanjeInfo(obj, platno, config);
 	}
 }
 
-function proveraPoklapanjaCvor(x, y, cvor) {
-
+function proveraPoklapanjaCvor(x, y, cvor, obj, platno, config) {
 	if(cvor == null) {
 		//console.log("null");
 		//uklanjanjeInfo();
@@ -723,18 +719,18 @@ function proveraPoklapanjaCvor(x, y, cvor) {
 
 	let a, b, c;
 
-	if(IZABRANI_CVOR != null) {
-		a = x - IZABRANI_CVOR.X;
-		b = y - IZABRANI_CVOR.Y;
+	if(obj.izabraniCvor != null) {
+		a = x - obj.izabraniCvor.X;
+		b = y - obj.izabraniCvor.Y;
 		c = Math.sqrt(a * a + b * b);	
 
-		if(c <= krugPoluprecnik2) {
+		if(c <= config.krugPoluprecnik2) {
 			//console.log(str);
 			//prikazInfo(IZABRANI_CVOR);
 			return;
 		}
 		else {
-			uklanjanjeInfo();
+			uklanjanjeInfo(obj, platno, config);
 			return;
 		}
 	}
@@ -748,9 +744,9 @@ function proveraPoklapanjaCvor(x, y, cvor) {
 	b = y - cvor.Y;
 	c = Math.sqrt(a * a + b * b);
 
-	if(c <= krugPoluprecnik2) {
+	if(c <= config.krugPoluprecnik2) {
 		//console.log(str);
-		prikazInfo(cvor);
+		prikazInfo(cvor, obj, platno, config);
 		return;
 	}
 
@@ -761,14 +757,14 @@ function proveraPoklapanjaCvor(x, y, cvor) {
 	}
 
 	if(x >= cvor.X) {
-		proveraPoklapanjaCvor(x, y, cvor.desni);
+		proveraPoklapanjaCvor(x, y, cvor.desni, obj, platno, config);
 	}
 	else {
-		proveraPoklapanjaCvor(x, y, cvor.levi);
+		proveraPoklapanjaCvor(x, y, cvor.levi, obj, platno, config);
 	}
 }
 
-function pokretKursora(e) {
+function pokretKursora(e, obj, platno, config) {
 	const p = e.currentTarget.getBoundingClientRect();
 	let   x = Math.floor(e.clientX - p.left) + e.currentTarget.scrollLeft;
 	let   y = Math.floor(e.clientY - p.top)  + e.currentTarget.scrollTop;
@@ -776,54 +772,63 @@ function pokretKursora(e) {
 	//document.getElementById("info_x").innerHTML = "X: " + x;
 	//document.getElementById("info_y").innerHTML = "Y: " + y;
 
-	proveraPoklapanjaCvor(x, y, STABLO);
+	// !!! TODO
+	proveraPoklapanjaCvor(x, y, obj.stablo, obj, platno, config);
 	//proveraPoklapanja(x, y, LISTA_CVOROVA);
 }
 
-function prikazInfo(cvor) {
-	IZABRANI_CVOR = cvor;
-	IZABRANI_CVOR.bojaIspuna    = BOJA_ISPUNA_2;
-	IZABRANI_CVOR.bojaIvica     = BOJA_IVICA_2;
-	IZABRANI_CVOR.bojaTekst     = BOJA_TEKST_2;
-	IZABRANI_CVOR.debljinaIvica = DEBLJINA_IVICA_2;
+function prikazInfo(cvor, obj, platno, config) {
+	obj.izabraniCvor = cvor;
+	obj.izabraniCvor.bojaIspuna    = config.bojaIspuna2;
+	obj.izabraniCvor.bojaIvica     = config.bojaIvica2;
+	obj.izabraniCvor.bojaTekst     = config.bojaTekst2;
+	obj.izabraniCvor.debljinaIvica = config.debljinaIvica2;
 	//document.getElementById("info_1").innerHTML        = "Cvor: " + cvor.vrednost;
 	document.getElementById("svg_platno").style.cursor = "pointer";
 	//uklanjanjeCvora(STABLO, IZABRANI_CVOR.vrednost);
-	osvezavanjePrikaza();
+	osvezavanjePrikaza(obj, platno, config);
 }
 
-function uklanjanjeInfo() {
-	if(IZABRANI_CVOR == null) return;
+function uklanjanjeInfo(obj, platno, config) {
+	if(obj.izabraniCvor == null) return;
 
 	//document.getElementById("info_1").innerHTML        = "Cvor: ";
 	document.getElementById("svg_platno").style.cursor = "initial";
 	//console.log(IZABRANI_CVOR);
-	IZABRANI_CVOR.bojaIspuna    = BOJA_ISPUNA_1;
-	IZABRANI_CVOR.bojaIvica     = BOJA_IVICA_1;
-	IZABRANI_CVOR.bojaTekst     = BOJA_TEKST_1;
-	IZABRANI_CVOR.debljinaIvica = DEBLJINA_IVICA_1;
-	osvezavanjePrikaza();
-	IZABRANI_CVOR = null;
+	obj.izabraniCvor.bojaIspuna    = config.bojaIspuna1;
+	obj.izabraniCvor.bojaIvica     = config.bojaIvica1;
+	obj.izabraniCvor.bojaTekst     = config.bojaTekst1;
+	obj.izabraniCvor.debljinaIvica = config.debljinaIvica1;
+	osvezavanjePrikaza(obj, platno, config);
+	obj.izabraniCvor = null;
 }
 
-function klikNaPlatno() {
-	if(IZABRANI_CVOR == null) return;
+function klikNaPlatno(obj, platno, config) {
+	if(obj.izabraniCvor == null) return;
 
-	IZABRANI_CVOR.bojaIspuna = BOJA_ISPUNA_3;
-	osvezavanjePrikaza();
+	obj.izabraniCvor.bojaIspuna = config.bojaIspuna3;
+	osvezavanjePrikaza(obj, platno, config);
 }
 
-function klikPlatnoOtpust() {
-	if(IZABRANI_CVOR == null) return;
+function klikPlatnoOtpust(obj, platno, config) {
+	if(obj.izabraniCvor == null) return;
 
-	if(STABLO.levi == null && STABLO.desni == null) {
+	if(obj.stablo.levi == null && obj.stablo.desni == null) {
 		alert("Ne damo Vam da obrišete taj jedini čvor! :)");
 		return;
 	}
 
-	STABLO = uklanjanjeCvora(STABLO, IZABRANI_CVOR.vrednost);
-	azuriranjeStablaSirinaVisina(STABLO);
-	azuriranjeStablaXY();
+	obj.stablo = uklanjanjeCvora(obj.stablo, obj.izabraniCvor.vrednost);
+	azuriranjeStablaSirinaVisina(obj.stablo);
+	azuriranjeStablaXY(obj, platno, config);
 	//popunjavanjeListeCvorova();
-	osvezavanjePrikaza();
+	osvezavanjePrikaza(obj, platno, config);
 }
+
+document.getElementById("forma_avl_cvor_dodavanje").addEventListener("focus", iskljucivanjePrecica)
+document.getElementById("forma_avl_cvor_dodavanje").addEventListener("blur",  ukljucivanjePrecica)
+document.getElementById("dugme_avl_pokretanje").addEventListener("click",     ( ) => { dodavanjeNovogCvora(STRUCT, SVG_PLATNO, CONFIG) } )
+document.getElementById("svg_platno").addEventListener("mousemove", (e) => { pokretKursora(e, STRUCT, SVG_PLATNO, CONFIG) } )
+document.getElementById("svg_platno").addEventListener("mousedown", ( ) => { klikNaPlatno(STRUCT, SVG_PLATNO, CONFIG) } )
+document.getElementById("svg_platno").addEventListener("mouseup",   ( ) => { klikPlatnoOtpust(STRUCT, SVG_PLATNO, CONFIG) } )
+
