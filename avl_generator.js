@@ -1,108 +1,8 @@
 /* -------------------------------------------------------------------------- */
 /* Copyright (C) 2020. codeblog.rs                                            */
 /* -------------------------------------------------------------------------- */
-const CONFIG = {
-	svgNs: "http://www.w3.org/2000/svg",
-
-	// IVICE
-
-	ivicaDebljina: 1.5,
-	ivicaBoja:     "#000",
-
-	// KRUGOVI
-
-	krugPoluprecnik1:   16,
-	krugIvicaDebljina1: 0.5,
-	krugIvicaBoja1:     "#000",
-	krugIspuna1:        "#083880",
-
-	krugPoluprecnik2:   24,
-	krugIvicaDebljina2: 0.5,
-	krugIvicaBoja2:     "#000",
-	krugIspuna2:        "#1070ff",
-
-	// TEKST (U KRUGOVIMA)
-
-	fontFamilija1:    "Montserrat, sans-serif",
-	fontFamilija1:    "Inconsolata, Consolas, monospace",
-	fontFamilija1:    "monospace",
-	fontFamilija1:    "sans-serif",
-	fontVelicina1:    "20px",
-	fontDebljina1:    700,
-	fontBoja1:        "#fff",
-	fontOffsetY1:     -1,
-	fontOffsetYgpqy1: -1,
-	   
-	fontFamilija2:    "Montserrat, sans-serif",
-	fontFamilija2:    "Inconsolata, Consolas, monospace",
-	fontFamilija2:    "monospace",
-	fontFamilija2:    "sans-serif",
-	fontVelicina2:    "24px",
-	fontDebljina2:    400,
-	fontBoja2:        "#fff",
-	fontOffsetY2:     -1,
-	fontOffsetYgpqy2: -3,
-
-	// TEKST NOTACIJE
-
-	fontFamilijaInfiks: "Montserrat-Medium, sans-serif",
-	fontFamilijaInfiks: "Inconsolata, Consolas, monospace",
-	fontVelicinaInfiks: "22px",
-	fontDebljinaInfiks: 700,
-	fontBojaInfiks:     "#1070ff",
-	fontOffsetXInfiks:  20,
-	fontOffsetYInfiks:  32,
-
-	fontFamilijaPrefiks: "Montserrat-Medium, sans-serif",
-	fontFamilijaPrefiks: "Inconsolata, Consolas, monospace",
-	fontVelicinaPrefiks: "22px",
-	fontDebljinaPrefiks: 700,
-	fontBojaPrefiks:     "#1070ff",
-	fontOffsetXPrefiks:  20,
-	fontOffsetYPrefiks:  64,
-
-	fontFamilijaPostfiks: "Montserrat-Medium, sans-serif",
-	fontFamilijaPostfiks: "Inconsolata, Consolas, monospace",
-	fontVelicinaPostfiks: "22px",
-	fontDebljinaPostfiks: 700,
-	fontBojaPostfiks:     "#1070ff",
-	fontOffsetXPostfiks:  20,
-	fontOffsetYPostfiks:  96,
-
-	bojaIspuna1:    "#1070ff",
-	bojaIspuna2:    "#10ff70",
-	bojaIspuna3:    "#ff7070",
-	bojaIvica1:     "#000",
-	bojaIvica2:     "#000",
-	bojaIvica3:     "#000",
-	bojaTekst1:     "#fff",
-	bojaTekst2:     "#000",
-	debljinaIvica1: 0.5,
-	debljinaIvica2: 2.0
-}
-
-let SVG_PLATNO = {
-	sirina:               "100%",
-	visina:               "800px",
-	marginaX:             36,
-	offsetY:              60,
-	razmakX:              32,
-	razmakY:              56,
-	kriticnaVisinaRazmak: 4,
-	dodatniRazmak:        2,
-	korekcija:            1000
-}
-
-let STRUCT = {
-	brojac:       -1,
-	red:          null,
-	stek:         null,
-	stablo:       null,
-	listaCvorova: null,
-	izabraniCvor: null,
-	ispis:        null
-}
-
+import { CONFIG, SVG_PLATNO, STRUCT } from './avl_config.js'
+/* -------------------------------------------------------------------------- */
 class Cvor {
 	constructor (vrednost) {
 		this.vrednost      = vrednost;
@@ -130,12 +30,12 @@ class Cvor {
 }
 
 function azuriranjeStablaSirinaVisina(cvor) {
-	if(cvor == null) return;
+	if (cvor == null) return;
 
 	azuriranjeStablaSirinaVisina(cvor.levi);
 	azuriranjeStablaSirinaVisina(cvor.desni);
 
-	if(cvor.levi == null && cvor.desni == null) {
+	if (cvor.levi == null && cvor.desni == null) {
 		cvor.sledeciLevi  = 0;
 		cvor.sledeciDesni = 0;
 		cvor.visina       = 1;
@@ -145,7 +45,7 @@ function azuriranjeStablaSirinaVisina(cvor) {
 		return;
 	}
 
-	if(cvor.desni == null) {
+	if (cvor.desni == null) {
 		cvor.sledeciLevi  = cvor.levi.sirinaDesni + 1;
 		cvor.sledeciDesni = 0;
 		cvor.visina       = cvor.levi.visina + 1;
@@ -155,7 +55,7 @@ function azuriranjeStablaSirinaVisina(cvor) {
 		return;
 	}
 
-	if(cvor.levi == null) {
+	if (cvor.levi == null) {
 		cvor.sledeciDesni = cvor.desni.sirinaLevi + 1;
 		cvor.sledeciLevi  = 0;
 		cvor.visina       = cvor.desni.visina + 1;
@@ -181,7 +81,7 @@ function azuriranjeStablaSirinaVisina(cvor) {
 function azuriranjeStablaXY(obj, platno, config) {
 	let i;
 	let visinaY = 1;
-	obj.red     = [];
+	obj.red     = [ ];
 	
 	obj.stablo.X = platno.marginaX + config.krugPoluprecnik2 + obj.stablo.sirinaLevi * platno.razmakX;
 	obj.stablo.Y = platno.offsetY  +                           (visinaY - 1)         * platno.razmakY;
@@ -191,14 +91,14 @@ function azuriranjeStablaXY(obj, platno, config) {
 		         STABLO.sirinaDesni);
 	//*/
 
-	if(obj.stablo.levi != null) {
+	if (obj.stablo.levi != null) {
 		obj.stablo.levi.predakX       =  obj.stablo.X;
 		obj.stablo.levi.predakY       =  obj.stablo.Y;
 		obj.stablo.levi.predakOffsetX = -obj.stablo.sledeciLevi * platno.razmakX;
 		obj.red.push(obj.stablo.levi);
 	}
 	
-	if(obj.stablo.desni != null) {
+	if (obj.stablo.desni != null) {
 		obj.stablo.desni.predakX       = obj.stablo.X;
 		obj.stablo.desni.predakY       = obj.stablo.Y;
 		obj.stablo.desni.predakOffsetX = obj.stablo.sledeciDesni * platno.razmakX;
@@ -207,22 +107,22 @@ function azuriranjeStablaXY(obj, platno, config) {
 	
 	visinaY++;
 
-	while(obj.red.length > 0) {
-		let red_pom = [];
+	while (obj.red.length > 0) {
+		let red_pom = [ ];
 
-		for(i = 0; i < obj.red.length; i++) {
+		for (i = 0; i < obj.red.length; i++) {
 			let cv_pom = obj.red[i];
 			cv_pom.X = cv_pom.predakX + cv_pom.predakOffsetX;
 			cv_pom.Y = cv_pom.predakY + platno.razmakY;
 
-			if(cv_pom.levi != null) {
+			if (cv_pom.levi != null) {
 				cv_pom.levi.predakX       = cv_pom.X;
 				cv_pom.levi.predakY       = cv_pom.Y;
 				cv_pom.levi.predakOffsetX = -cv_pom.sledeciLevi * platno.razmakX;
 				red_pom.push(cv_pom.levi);
 			}
 
-			if(cv_pom.desni != null) {
+			if (cv_pom.desni != null) {
 				cv_pom.desni.predakX       = cv_pom.X;
 				cv_pom.desni.predakY       = cv_pom.Y;
 				cv_pom.desni.predakOffsetX = cv_pom.sledeciDesni * platno.razmakX;
@@ -236,7 +136,7 @@ function azuriranjeStablaXY(obj, platno, config) {
 			//*/
 		}
 
-		obj.red = [];
+		obj.red = [ ];
 		obj.red = red_pom;
 		visinaY++;
 	}
@@ -245,25 +145,25 @@ function azuriranjeStablaXY(obj, platno, config) {
 function crtanjeStabla(svgObjekat, obj, platno, config) {
 	let i;
 	let visinaY = 1;
-	obj.red = [];
+	obj.red = [ ];
 	obj.red.push(obj.stablo);
 
-	while(obj.red.length > 0) {
-		let red_pom = [];
+	while (obj.red.length > 0) {
+		let red_pom = [ ];
 
-		for(i = 0; i < obj.red.length; i++) {
+		for (i = 0; i < obj.red.length; i++) {
 			crtanjeCvora(svgObjekat, obj.red[i], platno, config);
 			
-			if(obj.red[i].levi != null) {
+			if (obj.red[i].levi != null) {
 				red_pom.push(obj.red[i].levi);
 			}
 
-			if(obj.red[i].desni != null) {
+			if (obj.red[i].desni != null) {
 				red_pom.push(obj.red[i].desni);
 			}
 		}
 
-		obj.red = [];
+		obj.red = [ ];
 		obj.red = red_pom;
 	}
 }
@@ -271,18 +171,18 @@ function crtanjeStabla(svgObjekat, obj, platno, config) {
 function azuriranjeVisine(C) {
 	if (C == null) return;
 		
-	if(C.levi == null && C.desni == null) {
+	if (C.levi == null && C.desni == null) {
 		C.visina = 1;
 		return;
 	}
 	
-	if(C.levi == null) {
+	if (C.levi == null) {
 		C.visina = C.desni.visina + 1;
 		//console.log(C.vrednost + "(" + C.visina + ")" + " " + C.desni.vrednost + "(" + C.desni.visina + ")");
 		return;	
 	}
 
-	if(C.desni == null) {
+	if (C.desni == null) {
 		C.visina = C.levi.visina + 1;
 		return;
 	}
@@ -293,19 +193,19 @@ function azuriranjeVisine(C) {
 }
 
 function azuriranjeBalansFaktora(C) {
-	if(C == null) return;
+	if (C == null) return;
 	
-	if(C.levi == null && C.desni == null) {
+	if (C.levi == null && C.desni == null) {
 		C.balansFaktor = 0;
 		return;
 	}
 
-	if(C.desni == null) {
+	if (C.desni == null) {
 		C.balansFaktor = C.levi.visina;
 		return;
 	}
 
-	if(C.levi == null) {
+	if (C.levi == null) {
 		C.balansFaktor = -C.desni.visina;
 		return;
 	}
@@ -315,7 +215,7 @@ function azuriranjeBalansFaktora(C) {
 
 function rotacijaLL(C) {
 	//console.log("Rotacija LL " + C.vrednost + " " + C.levi.vrednost + " " + C.levi.levi.vrednost);
-	B       = C.levi;
+	let B   = C.levi;
 	C.levi  = B.desni;
 	B.desni = C;
 
@@ -329,8 +229,8 @@ function rotacijaLL(C) {
 
 function rotacijaLD(C) {
 	//console.log("Rotacija LD " + C.vrednost + " " + C.levi.vrednost + " " + C.levi.desni.vrednost);
-	P            = new Cvor(0);
-	B            = C.levi.desni;
+	let P        = new Cvor(0);
+	let B        = C.levi.desni;
 	P.levi       = B.levi; 
 	P.desni      = B.desni;
 	B.levi       = C.levi;
@@ -350,7 +250,7 @@ function rotacijaLD(C) {
 
 function rotacijaDD(C) {
 	//console.log("Rotacija DD " + C.vrednost + " " + C.desni.vrednost + " " + C.desni.desni.vrednost);
-	B       = C.desni;
+	let B   = C.desni;
 	C.desni = B.levi;
 	B.levi  = C;
 
@@ -364,8 +264,8 @@ function rotacijaDD(C) {
 	
 function rotacijaDL(C) {
 	//console.log("Rotacija DL " + C.vrednost + " " + C.desni.vrednost + " " + C.desni.levi.vrednost);
-	P            = new Cvor(0);
-	B            = C.desni.levi;
+	let P        = new Cvor(0);
+	let B        = C.desni.levi;
 	P.levi       = B.levi;
 	P.desni      = B.desni;
 	B.desni      = C.desni; 
@@ -384,13 +284,13 @@ function rotacijaDL(C) {
 }
 
 function dodavanje(C, vrednost) {
-	if(C == null) return new Cvor(vrednost);
+	if (C == null) return new Cvor(vrednost);
 
-	if(vrednost < C.vrednost) {
+	if (vrednost < C.vrednost) {
 		C.levi = dodavanje(C.levi, vrednost);
 	}
 	else {
-		if(vrednost > C.vrednost) {
+		if (vrednost > C.vrednost) {
 			C.desni = dodavanje(C.desni, vrednost);
 		}
 		else {
@@ -402,19 +302,19 @@ function dodavanje(C, vrednost) {
 	azuriranjeVisine(C);
 	azuriranjeBalansFaktora(C);
 	
-	if(C.balansFaktor == 2  && C.levi.balansFaktor == 1) {
+	if (C.balansFaktor == 2  && C.levi.balansFaktor == 1) {
 		return rotacijaLL(C);
 	}
 
-	if(C.balansFaktor == 2  && C.levi.balansFaktor == -1) {
+	if (C.balansFaktor == 2  && C.levi.balansFaktor == -1) {
 		return rotacijaLD(C);
 	}
 
-	if(C.balansFaktor == -2 && C.desni.balansFaktor == -1) {
+	if (C.balansFaktor == -2 && C.desni.balansFaktor == -1) {
 		return rotacijaDD(C);
 	}
 
-	if(C.balansFaktor == -2 && C.desni.balansFaktor == 1) {
+	if (C.balansFaktor == -2 && C.desni.balansFaktor == 1) {
 		return rotacijaDL(C);
 	}
 
@@ -422,7 +322,7 @@ function dodavanje(C, vrednost) {
 }
 
 function obilazakPopunjavanjeListe(cvor, lista) {
-	if(cvor == null) return;
+	if (cvor == null) return;
 	
 	lista.push(cvor);
 
@@ -431,13 +331,13 @@ function obilazakPopunjavanjeListe(cvor, lista) {
 }
 
 function popunjavanjeListeCvorova() {
-	//LISTA_CVOROVA = [];
+	//LISTA_CVOROVA = [ ];
 	//obilazakPopunjavanjeListe(STABLO, LISTA_CVOROVA);
 	//console.log(LISTA_CVOROVA);
 }
 
 function ispisTekstaSVG(svgObjekat) {
-	var tekst;
+	let tekst;
 	// INFIKS
 	tekst = document.createElementNS(SVG_NS, "text");
     tekst.setAttribute("x",           fontOffsetXInfiks);
@@ -480,7 +380,7 @@ function crtanjeCvora(svgObjekat, cvor, platno, config) {
 
     // LINIJA - LEVA
 
-    var linijaLeva = document.createElementNS(config.svgNs, "line");
+    let linijaLeva = document.createElementNS(config.svgNs, "line");
 
     linijaLeva.setAttribute("x1",           cvor.X);
     linijaLeva.setAttribute("y1",           cvor.Y);
@@ -491,7 +391,7 @@ function crtanjeCvora(svgObjekat, cvor, platno, config) {
 
     // LINIJA - DESNA
 
-    var linijaDesna = document.createElementNS(config.svgNs, "line");
+    let linijaDesna = document.createElementNS(config.svgNs, "line");
 
     linijaDesna.setAttribute("x1",           cvor.X);
     linijaDesna.setAttribute("y1",           cvor.Y);
@@ -502,7 +402,7 @@ function crtanjeCvora(svgObjekat, cvor, platno, config) {
 
     // KRUG
 
-    var krug = document.createElementNS(config.svgNs, "circle");
+    let krug = document.createElementNS(config.svgNs, "circle");
 
     krug.setAttribute("cx",           cvor.X);
     krug.setAttribute("cy",           cvor.Y);
@@ -513,8 +413,8 @@ function crtanjeCvora(svgObjekat, cvor, platno, config) {
 
     // TEKST
 
-    var tekst       = document.createElementNS(config.svgNs, "text");
-    var koordinataY = cvor.Y +  config.fontOffsetY2;
+    let tekst       = document.createElementNS(config.svgNs, "text");
+    let koordinataY = cvor.Y +  config.fontOffsetY2;
     tekst.setAttribute("x", cvor.X);
     tekst.setAttribute("y", koordinataY);
     tekst.setAttribute("font-family", config.fontFamilija2);
@@ -536,7 +436,7 @@ function osvezavanjePrikaza(obj, platno, config) {
 	let sirina     = svg_platno.clientWidth;
 	svg_platno.style.maxWidth = sirina + "px";
 
-	var svg1       = document.createElementNS(config.svgNs, "svg");
+	let svg1       = document.createElementNS(config.svgNs, "svg");
 	
 	crtanjeStabla(svg1, obj, platno, config);
 
@@ -552,12 +452,12 @@ function osvezavanjePrikaza(obj, platno, config) {
 }
 
 function dodavanjeNovogCvora(obj, platno, config) {
-	var vrednost = parseInt(document.getElementById("forma_avl_cvor_dodavanje").value);
+	let vrednost = parseInt(document.getElementById("forma_avl_cvor_dodavanje").value);
 	document.getElementById("forma_avl_cvor_dodavanje").value = "";
 	
 	//VRATITI
-	if(isNaN(vrednost))               return;
-	if(obj.brojac == -1 && (vrednost < 0 || vrednost > 99)) return;
+	if (isNaN(vrednost))               return;
+	if (obj.brojac == -1 && (vrednost < 0 || vrednost > 99)) return;
 	// TODO
 	
 	// VRATITI
@@ -575,8 +475,8 @@ function dodavanjeNovogCvora(obj, platno, config) {
 }
 
 function uklanjanjeCvoraIzStabla(obj, platno, config) {
-	var vrednost   = parseInt(document.getElementById("forma_avl_cvor_uklanjanje").value);
-	if(vrednost < 0 || vrednost > 99) return;
+	let vrednost   = parseInt(document.getElementById("forma_avl_cvor_uklanjanje").value);
+	if (vrednost < 0 || vrednost > 99) return;
 
 	obj.stablo = uklanjanjeCvora(obj.stablo, vrednost);
 	
@@ -589,24 +489,24 @@ function uklanjanjeCvoraIzStabla(obj, platno, config) {
 }
 
 function pretraga(cvor, vrednost) {
-	if(cvor == null) return null;
+	if (cvor == null) return null;
 
-	if(vrednost == cvor.vrednost) {
+	if (vrednost == cvor.vrednost) {
 		return cvor;
 	}
 
-	if(vrednost < cvor.vrednost) {
+	if (vrednost < cvor.vrednost) {
 		return pretraga(cvor.levi, vrednost);
 	}
 
-	if(vrednost > cvor.vrednost) {
+	if (vrednost > cvor.vrednost) {
 		return pretraga(cvor.desni, vrednost);
 	}
 }
 
 function pronalazenjeSukcesora(cvor) {
-	P = cvor;
-	while(P.levi != null) {
+	let P = cvor;
+	while (P.levi != null) {
 		P = P.levi;
 	}
 	//console.log(P.vrednost);
@@ -614,40 +514,42 @@ function pronalazenjeSukcesora(cvor) {
 }
 
 function uklanjanjeCvora(cvor, vrednost) {
-	if(cvor == null) {
+	let P1;
+
+	if (cvor == null) {
 		alert("Navedeni čvor ne postoji u stablu.");
 		return cvor;
 	}
 
-	if(vrednost < cvor.vrednost) {
+	if (vrednost < cvor.vrednost) {
 		//console.log("Ukl - manji: " + cvor.vrednost + " " + vrednost);
 		cvor.levi = uklanjanjeCvora(cvor.levi, vrednost);
 	}
 
-	if(vrednost > cvor.vrednost) {
+	if (vrednost > cvor.vrednost) {
 		//console.log("Ukl - veći: " + cvor.vrednost + " " + vrednost);
 		cvor.desni = uklanjanjeCvora(cvor.desni, vrednost);
 	}
 
-	if(vrednost == cvor.vrednost) {
-		if(cvor.levi == null && cvor.desni == null) {
+	if (vrednost == cvor.vrednost) {
+		if (cvor.levi == null && cvor.desni == null) {
 			//console.log("== " + cvor.vrednost + " " + vrednost);
 			P1 = null;
 		}
 		
-		if(cvor.levi != null && cvor.desni == null) {
+		if (cvor.levi != null && cvor.desni == null) {
 			//console.log("!= " + cvor.vrednost + " " + vrednost);
 			P1 = cvor.levi;
 		}
 
-		if(cvor.levi == null && cvor.desni != null) {
+		if (cvor.levi == null && cvor.desni != null) {
 			//console.log("=! " + cvor.vrednost + " " + vrednost);
 			P1 = cvor.desni;
 		}
 
-		if(cvor.levi != null && cvor.desni != null) {
+		if (cvor.levi != null && cvor.desni != null) {
 			//console.log("!! " + cvor.vrednost + " " + vrednost);
-			P2            = pronalazenjeSukcesora(cvor.desni);
+			let P2        = pronalazenjeSukcesora(cvor.desni);
 			cvor.vrednost = P2.vrednost;
 			cvor.desni    = uklanjanjeCvora(cvor.desni, P2.vrednost);
 		}	
@@ -661,19 +563,19 @@ function uklanjanjeCvora(cvor, vrednost) {
 	azuriranjeVisine(cvor);
 	azuriranjeBalansFaktora(cvor);
 
-	if(cvor.balansFaktor > 1 && cvor.levi.balansFaktor > 0) {
+	if (cvor.balansFaktor > 1 && cvor.levi.balansFaktor > 0) {
 		return rotacijaLL(cvor);
 	}
 
-	if(cvor.balansFaktor > 1 && cvor.levi.balansFaktor <= 0) {
+	if (cvor.balansFaktor > 1 && cvor.levi.balansFaktor <= 0) {
 		return rotacijaLD(cvor);
 	}
 
-	if(cvor.balansFaktor < -1 && cvor.desni.balansFaktor < 0) {
+	if (cvor.balansFaktor < -1 && cvor.desni.balansFaktor < 0) {
 		return rotacijaDD(cvor);
 	}
 
-	if(cvor.balansFaktor < -1 && cvor.desni.balansFaktor >= 0) {
+	if (cvor.balansFaktor < -1 && cvor.desni.balansFaktor >= 0) {
 		return rotacijaDL(cvor);
 	}
 
@@ -681,10 +583,10 @@ function uklanjanjeCvora(cvor, vrednost) {
 }
 
 function proveraPoklapanja(x, y, lista, obj, platno, config) {
-	cvor = lista[0];
+	let cvor = lista[0];
 
-	if(IZABRANI_CVOR != null) {
-		if(proveraPoklapanjaCvor(x, y, cvor, obj, platno, config)) {
+	if (IZABRANI_CVOR != null) {
+		if (proveraPoklapanjaCvor(x, y, cvor, obj, platno, config)) {
 			return;
 		}
 		else {
@@ -693,25 +595,25 @@ function proveraPoklapanja(x, y, lista, obj, platno, config) {
 		}
 	}
 
-	if(lista == null) return;
+	if (lista == null) return;
 
 	let i, d = lista.length;
 
-	for(i = 0; i < d; i++) {
+	for (i = 0; i < d; i++) {
 		cvor = lista[i];
 		
-		if(proveraPoklapanjaCvor(x, y, cvor, obj, platno, config)) {
+		if (proveraPoklapanjaCvor(x, y, cvor, obj, platno, config)) {
 			return;
 		}
 	}
 
-	if(i == d) {
+	if (i == d) {
 		uklanjanjeInfo(obj, platno, config);
 	}
 }
 
 function proveraPoklapanjaCvor(x, y, cvor, obj, platno, config) {
-	if(cvor == null) {
+	if (cvor == null) {
 		//console.log("null");
 		//uklanjanjeInfo();
 		return;
@@ -719,12 +621,12 @@ function proveraPoklapanjaCvor(x, y, cvor, obj, platno, config) {
 
 	let a, b, c;
 
-	if(obj.izabraniCvor != null) {
+	if (obj.izabraniCvor != null) {
 		a = x - obj.izabraniCvor.X;
 		b = y - obj.izabraniCvor.Y;
 		c = Math.sqrt(a * a + b * b);	
 
-		if(c <= config.krugPoluprecnik2) {
+		if (c <= config.krugPoluprecnik2) {
 			//console.log(str);
 			//prikazInfo(IZABRANI_CVOR);
 			return;
@@ -744,19 +646,19 @@ function proveraPoklapanjaCvor(x, y, cvor, obj, platno, config) {
 	b = y - cvor.Y;
 	c = Math.sqrt(a * a + b * b);
 
-	if(c <= config.krugPoluprecnik2) {
+	if (c <= config.krugPoluprecnik2) {
 		//console.log(str);
 		prikazInfo(cvor, obj, platno, config);
 		return;
 	}
 
-	if(y <= cvor.Y) {
+	if (y <= cvor.Y) {
 		//console.log("null");
 		//uklanjanjeInfo();
 		return;
 	}
 
-	if(x >= cvor.X) {
+	if (x >= cvor.X) {
 		proveraPoklapanjaCvor(x, y, cvor.desni, obj, platno, config);
 	}
 	else {
@@ -790,7 +692,7 @@ function prikazInfo(cvor, obj, platno, config) {
 }
 
 function uklanjanjeInfo(obj, platno, config) {
-	if(obj.izabraniCvor == null) return;
+	if (obj.izabraniCvor == null) return;
 
 	//document.getElementById("info_1").innerHTML        = "Cvor: ";
 	document.getElementById("svg_platno").style.cursor = "initial";
@@ -804,16 +706,16 @@ function uklanjanjeInfo(obj, platno, config) {
 }
 
 function klikNaPlatno(obj, platno, config) {
-	if(obj.izabraniCvor == null) return;
+	if (obj.izabraniCvor == null) return;
 
 	obj.izabraniCvor.bojaIspuna = config.bojaIspuna3;
 	osvezavanjePrikaza(obj, platno, config);
 }
 
 function klikPlatnoOtpust(obj, platno, config) {
-	if(obj.izabraniCvor == null) return;
+	if (obj.izabraniCvor == null) return;
 
-	if(obj.stablo.levi == null && obj.stablo.desni == null) {
+	if (obj.stablo.levi == null && obj.stablo.desni == null) {
 		alert("Ne damo Vam da obrišete taj jedini čvor! :)");
 		return;
 	}
