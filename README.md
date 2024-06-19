@@ -5,6 +5,6 @@ JS generator AVL stabla (sa metodama za dodavanje, uklanjanje i prikaz čvorova)
 
 ## demo
 
-https://www.codeblog.rs/generator_avl_stabla.php
+https://codeblog.rs/generator_avl_stabla
 
 Copyright (C) 2020. Nikola Vukićević                                       
